@@ -1,0 +1,74 @@
+version: '2.1'
+
+services:
+
+    emby:
+        image: emby/embyserver_arm32v7:latest
+        volumes:
+            - ./media/config/emby:/config
+            - ./media/data/emby:/data
+            - ./media/storage:/mnt/storage
+        ports:
+            - "8096:8096"
+            - "8920:8920"
+        environment:
+            - UID=1000
+            - GID=100
+            - GIDLIST=100
+
+    transmission:
+        container_name: transmission
+        build:
+            context: ./
+            dockerfile: ./transmission/Dockerfile
+        restart: unless-stopped
+        network_mode: host
+        ports:
+            - "9091:9091"
+            - "51413:51413"
+            - "51413:51413/udp"
+        environment:
+            - TZ=Asia/Dubai
+            - USERID=1000
+            - GROUPID=1000
+        volumes:
+            - ./media/config/transmission:/var/lib/transmission-daemon/info
+            #set transmission or sonarr download folder to /downloads
+            - ./media/downloads/complete:/downloads
+            - ./media/downloads/temp:/var/lib/transmission-daemon/incomplete
+
+    sonarr:
+        container_name: sonarr
+        image: linuxserver/sonarr
+        restart: unless-stopped
+        depends_on:
+            - transmission
+        network_mode: host
+        environment:
+            - TZ=Asia/Dubai
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./media/config/sonarr:/config
+            - ./media/storage/series:/tv
+            - ./media/downloads/complete:/downloads
+        ports:
+            - "8989:8989"
+
+    radarr:
+        container_name: radarr
+        image: linuxserver/radarr
+        restart: unless-stopped
+        depends_on:
+            - transmission
+        network_mode: host
+        environment:
+            - TZ=Asia/Dubai
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./media/config/radarr:/config
+            - ./media/storage/movies:/movies
+            - ./media/downloads/complete:/downloads
+        ports:
+            - "7878:7878"
