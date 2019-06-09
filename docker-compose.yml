@@ -1,5 +1,9 @@
 version: '2.1'
 
+networks:
+    mediaserver:
+        driver: bridge
+
 services:
 
     emby:
@@ -15,6 +19,8 @@ services:
             - UID=1000
             - GID=100
             - GIDLIST=100
+        networks:
+            - mediaserver
 
     transmission:
         container_name: transmission
@@ -22,7 +28,6 @@ services:
             context: ./
             dockerfile: ./transmission/Dockerfile
         restart: unless-stopped
-        network_mode: host
         ports:
             - "9091:9091"
             - "51413:51413"
@@ -36,6 +41,8 @@ services:
             #set transmission or sonarr download folder to /downloads
             - ./media/downloads/complete:/downloads
             - ./media/downloads/temp:/var/lib/transmission-daemon/incomplete
+        networks:
+            - mediaserver
 
     sonarr:
         container_name: sonarr
@@ -43,7 +50,6 @@ services:
         restart: unless-stopped
         depends_on:
             - transmission
-        network_mode: host
         environment:
             - TZ=Asia/Dubai
             - PUID=1000
@@ -54,6 +60,8 @@ services:
             - ./media/downloads/complete:/downloads
         ports:
             - "8989:8989"
+        networks:
+            - mediaserver
 
     radarr:
         container_name: radarr
@@ -61,7 +69,6 @@ services:
         restart: unless-stopped
         depends_on:
             - transmission
-        network_mode: host
         environment:
             - TZ=Asia/Dubai
             - PUID=1000
@@ -72,3 +79,5 @@ services:
             - ./media/downloads/complete:/downloads
         ports:
             - "7878:7878"
+        networks:
+            - mediaserver
