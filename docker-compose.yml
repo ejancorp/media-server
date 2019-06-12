@@ -82,7 +82,7 @@ services:
         networks:
             - mediaserver
      
-     couchpotato:
+    couchpotato:
         container_name: couchpotato
         image: linuxserver/couchpotato
         restart: unless-stopped
