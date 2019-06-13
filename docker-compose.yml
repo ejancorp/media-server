@@ -81,3 +81,18 @@ services:
             - "7878:7878"
         networks:
             - mediaserver
+
+    sabnzbd:
+        image: linuxserver/sabnzbd
+        container_name: sabnzbd
+        restart: unless-stopped
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Asia/Dubai
+        volumes:
+            - ./media/config/sabnzbd:/config
+            - ./media/downloads/complete:/downloads
+        ports:
+            - 8080:8080
+            - 9090:9090
