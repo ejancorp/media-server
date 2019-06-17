@@ -1,0 +1,32 @@
+version: '2.1'
+
+services:
+
+    sabnzbd:
+        image: linuxserver/sabnzbd
+        container_name: sabnzbd
+        restart: unless-stopped
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Asia/Dubai
+        volumes:
+            - ./media/config/sabnzbd:/config
+            - ./media/downloads/complete:/downloads
+        ports:
+            - "8080:8080"
+            - "9090:9090"
+
+    hydra2:
+        image: linuxserver/hydra2
+        container_name: hydra2
+        restart: unless-stopped
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - TZ=Asia/Dubai
+        volumes:
+            - ./media/config/hydra2:/config
+            - ./media/downloads/complete:/downloads
+        ports:
+            - "5076:5076"

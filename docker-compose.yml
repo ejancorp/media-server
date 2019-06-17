@@ -22,34 +22,10 @@ services:
         networks:
             - mediaserver
 
-    transmission:
-        container_name: transmission
-        build:
-            context: ./
-            dockerfile: ./transmission/Dockerfile
-        restart: unless-stopped
-        ports:
-            - "9091:9091"
-            - "51413:51413"
-            - "51413:51413/udp"
-        environment:
-            - TZ=Asia/Dubai
-            - USERID=1000
-            - GROUPID=1000
-        volumes:
-            - ./media/config/transmission:/var/lib/transmission-daemon/info
-            #set transmission or sonarr download folder to /downloads
-            - ./media/downloads/complete:/downloads
-            - ./media/downloads/temp:/var/lib/transmission-daemon/incomplete
-        networks:
-            - mediaserver
-
     sonarr:
         container_name: sonarr
         image: linuxserver/sonarr
         restart: unless-stopped
-        depends_on:
-            - transmission
         environment:
             - TZ=Asia/Dubai
             - PUID=1000
@@ -67,8 +43,6 @@ services:
         container_name: radarr
         image: linuxserver/radarr
         restart: unless-stopped
-        depends_on:
-            - transmission
         environment:
             - TZ=Asia/Dubai
             - PUID=1000
@@ -81,32 +55,3 @@ services:
             - "7878:7878"
         networks:
             - mediaserver
-
-    sabnzbd:
-        image: linuxserver/sabnzbd
-        container_name: sabnzbd
-        restart: unless-stopped
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Asia/Dubai
-        volumes:
-            - ./media/config/sabnzbd:/config
-            - ./media/downloads/complete:/downloads
-        ports:
-            - 8080:8080
-            - 9090:9090
-
-    hydra2:
-        image: linuxserver/hydra2
-        container_name: hydra2
-        restart: unless-stopped
-        environment:
-            - PUID=1000
-            - PGID=1000
-            - TZ=Asia/Dubai
-        volumes:
-            - ./media/config/hydra2:/config
-            - ./media/downloads/complete:/downloads
-        ports:
-            - 5076:5076
