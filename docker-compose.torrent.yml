@@ -37,3 +37,5 @@ services:
             - ./media/downloads/complete:/downloads
         ports:
             - "9117:9117"
+        networks:
+            - mediaserver
