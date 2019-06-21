@@ -12,6 +12,8 @@ services:
             - ./media/config/emby:/config
             - ./media/data/emby:/data
             - ./media/storage:/mnt/storage
+            # USB Storage
+            - /mnt/usb:/usb
         ports:
             - "8096:8096"
             - "8920:8920"
@@ -32,8 +34,10 @@ services:
             - PGID=1000
         volumes:
             - ./media/config/sonarr:/config
-            - ./media/storage/series:/tv
             - ./media/downloads/complete:/downloads
+            - ./media/storage/series:/tv
+            # USB Storage
+            - /mnt/usb:/usb
         ports:
             - "8989:8989"
         networks:
@@ -49,8 +53,10 @@ services:
             - PGID=1000
         volumes:
             - ./media/config/radarr:/config
-            - ./media/storage/movies:/movies
             - ./media/downloads/complete:/downloads
+            - ./media/storage/movies:/movies
+            # USB Storage
+            - /mnt/usb:/usb
         ports:
             - "7878:7878"
         networks:
