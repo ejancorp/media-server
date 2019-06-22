@@ -61,3 +61,22 @@ services:
             - "7878:7878"
         networks:
             - mediaserver
+    
+    lidarr:
+        container_name: lidarr
+        image: linuxserver/lidarr
+        restart: unless-stopped
+        environment:
+            - TZ=Asia/Dubai
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./media/config/lidarr:/config
+            - ./media/downloads/complete:/downloads
+            - ./media/storage/music:/music
+            # USB Storage
+            - /mnt/usb:/usb
+        ports:
+            - "8686:8686"
+        networks:
+            - mediaserver
