@@ -8,6 +8,7 @@ services:
             context: ./
             dockerfile: ./transmission/Dockerfile
         user: root
+        privileged: true
         restart: unless-stopped
         ports:
             - "9091:9091"
@@ -27,6 +28,7 @@ services:
         container_name: jackett
         image: linuxserver/jackett
         user: root
+        privileged: true
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai

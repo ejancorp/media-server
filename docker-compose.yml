@@ -9,6 +9,7 @@ services:
     emby:
         image: emby/embyserver_arm32v7:latest
         user: root
+        privileged: true
         volumes:
             - ./media/config/emby:/config
             - ./media/data/emby:/data
@@ -25,6 +26,7 @@ services:
         container_name: sonarr
         image: linuxserver/sonarr
         user: root
+        privileged: true
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
@@ -42,6 +44,8 @@ services:
     radarr:
         container_name: radarr
         image: linuxserver/radarr
+        user: root
+        privileged: true
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
@@ -60,6 +64,7 @@ services:
         container_name: lidarr
         image: linuxserver/lidarr
         user: root
+        privileged: true
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
