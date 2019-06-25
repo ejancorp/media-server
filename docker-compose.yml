@@ -8,6 +8,7 @@ services:
 
     emby:
         image: emby/embyserver_arm32v7:latest
+        user: root
         volumes:
             - ./media/config/emby:/config
             - ./media/data/emby:/data
@@ -17,21 +18,16 @@ services:
         ports:
             - "8096:8096"
             - "8920:8920"
-        environment:
-            - UID=1000
-            - GID=100
-            - GIDLIST=100
         networks:
             - mediaserver
 
     sonarr:
         container_name: sonarr
         image: linuxserver/sonarr
+        user: root
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
-            - PUID=1000
-            - PGID=1000
         volumes:
             - ./media/config/sonarr:/config
             - ./media/downloads/complete:/downloads
@@ -49,8 +45,6 @@ services:
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
-            - PUID=1000
-            - PGID=1000
         volumes:
             - ./media/config/radarr:/config
             - ./media/downloads/complete:/downloads
@@ -65,11 +59,10 @@ services:
     lidarr:
         container_name: lidarr
         image: linuxserver/lidarr
+        user: root
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
-            - PUID=1000
-            - PGID=1000
         volumes:
             - ./media/config/lidarr:/config
             - ./media/downloads/complete:/downloads

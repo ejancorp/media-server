@@ -6,9 +6,8 @@ services:
         image: linuxserver/sabnzbd
         container_name: sabnzbd
         restart: unless-stopped
+        user: root
         environment:
-            - PUID=1000
-            - PGID=1000
             - TZ=Asia/Dubai
         volumes:
             - ./media/config/sabnzbd:/config
@@ -21,9 +20,8 @@ services:
         image: linuxserver/hydra2
         container_name: hydra2
         restart: unless-stopped
+        user: root
         environment:
-            - PUID=1000
-            - PGID=1000
             - TZ=Asia/Dubai
         volumes:
             - ./media/config/hydra2:/config
