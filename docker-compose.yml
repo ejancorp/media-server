@@ -80,3 +80,22 @@ services:
             - "8686:8686"
         networks:
             - mediaserver
+
+    bazarr:
+        container_name: bazarr
+        image: linuxserver/bazarr
+        restart: unless-stopped
+        environment:
+            - TZ=Asia/Dubai
+            - PUID=1000
+            - PGID=1000
+        volumes:
+            - ./media/config/bazarr:/config
+            - ./media/storage/movies:/movies
+            - ./media/storage/series:/tv
+            # USB Storage
+            - /mnt/usb:/usb
+        ports:
+            - "6767:6767"
+        networks:
+            - mediaserver
