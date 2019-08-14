@@ -14,6 +14,8 @@ services:
             - ./media/storage:/mnt/storage
             # USB Storage
             - /mnt/usb:/usb
+            # USB External
+            - /mnt/external:/external
         ports:
             - "8096:8096"
             - "8920:8920"
@@ -38,6 +40,8 @@ services:
             - ./media/storage/series:/tv
             # USB Storage
             - /mnt/usb:/usb
+            # USB External
+            - /mnt/external:/external
         ports:
             - "8989:8989"
         networks:
@@ -57,6 +61,8 @@ services:
             - ./media/storage/movies:/movies
             # USB Storage
             - /mnt/usb:/usb
+            # USB External
+            - /mnt/external:/external
         ports:
             - "7878:7878"
         networks:
@@ -76,6 +82,8 @@ services:
             - ./media/storage/music:/music
             # USB Storage
             - /mnt/usb:/usb
+            # USB External
+            - /mnt/external:/external
         ports:
             - "8686:8686"
         networks:
@@ -95,6 +103,8 @@ services:
             - ./media/storage/series:/tv
             # USB Storage
             - /mnt/usb:/usb
+            # USB External
+            - /mnt/external:/external
         ports:
             - "6767:6767"
         networks:
