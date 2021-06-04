@@ -19,7 +19,7 @@ services:
             - ./media/downloads/complete:/downloads
             - ./media/storage/series:/tv
             # USB Storage
-            - /mnt/usb:/usb
+            #- /mnt/usb:/usb
         ports:
             - "8989:8989"
         networks:
@@ -38,7 +38,7 @@ services:
             - ./media/downloads/complete:/downloads
             - ./media/storage/movies:/movies
             # USB Storage
-            - /mnt/usb:/usb
+            #- /mnt/usb:/usb
         ports:
             - "7878:7878"
         networks:
@@ -57,7 +57,7 @@ services:
             - ./media/downloads/complete:/downloads
             - ./media/storage/music:/music
             # USB Storage
-            - /mnt/usb:/usb
+            #- /mnt/usb:/usb
         ports:
             - "8686:8686"
         networks:
