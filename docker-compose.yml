@@ -6,22 +6,6 @@ networks:
 
 services:
 
-    emby:
-        image: emby/embyserver_arm32v7:latest
-        user: root
-        privileged: true
-        volumes:
-            - ./media/config/emby:/config
-            - ./media/data/emby:/data
-            - ./media/storage:/mnt/storage
-            # USB Storage
-            - /mnt/usb:/usb
-        ports:
-            - "8096:8096"
-            - "8920:8920"
-        networks:
-            - mediaserver
-
     sonarr:
         container_name: sonarr
         image: linuxserver/sonarr
