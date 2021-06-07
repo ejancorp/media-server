@@ -1,8 +1,4 @@
-ARG target=arm32v6
-FROM $target/alpine
-
-ARG arch=arm
-ENV ARCH=$arch
+FROM alpine:latest
 
 RUN apk update && \
     apk upgrade && \
