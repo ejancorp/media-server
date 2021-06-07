@@ -1,5 +1,9 @@
 version: '2.1'
 
+networks:
+    mediaserver:
+        external: true
+
 services:
 
     transmission:

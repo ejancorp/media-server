@@ -1,8 +1,10 @@
 version: '2.1'
 
+# docker network create mediaserver
+
 networks:
     mediaserver:
-        driver: bridge
+        external: true
 
 services:
 
@@ -18,8 +20,6 @@ services:
             - ./media/config/sonarr:/config
             - ./media/downloads/complete:/downloads
             - ./media/storage/series:/tv
-            # USB Storage
-            - /mnt/usb:/usb
         ports:
             - "8989:8989"
         networks:
@@ -37,28 +37,24 @@ services:
             - ./media/config/radarr:/config
             - ./media/downloads/complete:/downloads
             - ./media/storage/movies:/movies
-            # USB Storage
-            - /mnt/usb:/usb
         ports:
             - "7878:7878"
         networks:
             - mediaserver
-    
-    lidarr:
-        container_name: lidarr
-        image: linuxserver/lidarr
+
+    bazarr:
+        container_name: bazarr
+        image: ghcr.io/linuxserver/bazarr
         user: root
         privileged: true
         restart: unless-stopped
         environment:
             - TZ=Asia/Dubai
         volumes:
-            - ./media/config/lidarr:/config
-            - ./media/downloads/complete:/downloads
-            - ./media/storage/music:/music
-            # USB Storage
-            - /mnt/usb:/usb
+            - ./media/config/bazarr:/config
+            - ./media/storage/movies:/movies
+            - ./media/storage/series:/tv
         ports:
-            - "8686:8686"
+            - 6767:6767
         networks:
-            - mediaserver
+          - mediaserver
